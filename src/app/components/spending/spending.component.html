@@ -1,0 +1,21 @@
+<div class="spending-wrapper">
+    <div class="left-col tui-space_right-5" *ngIf="spending">
+        <span class="tui-space_bottom-1 uppercase">{{spending.item}}</span>
+        <tui-money [currency]="'Rs'" [value]="spending.cost"></tui-money>
+    </div>
+    <div class="right-col">
+
+        <tui-badged-content colorTop="var(--tui-success-fill)" size="s" [contentTop]="badgeContent" [rounded]="true">
+            <tui-avatar (click)="onAvatarClick()" class="tui-space_top-1 users-avatar" size="s"
+                [avatarUrl]="'assets/icons/ph_users.svg'">
+            </tui-avatar>
+        </tui-badged-content>
+
+        <!-- <tui-badged-content colorTop="var(--tui-success-fill)" size="s" [contentTop]="1" [rounded]="true">
+            <tui-avatar class="tui-space_top-1 users-avatar" size="s" [avatarUrl]="'assets/icons/ph_users.svg'"
+                (click)="onAvatarClick()">
+            </tui-avatar>
+        </tui-badged-content> -->
+
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.date-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.date-text {
+  margin-left: 0.5rem;
+  &_empty {
+    color: var(--tui-text-03);
+  }
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+}

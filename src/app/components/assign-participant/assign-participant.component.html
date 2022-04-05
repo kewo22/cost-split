@@ -1,0 +1,33 @@
+<div *ngIf="participants">
+
+    <table class="tui-table">
+        <tbody [formGroup]="form">
+
+            <tr class="tui-table__tr">
+                <td class="tui-table__td"> Select All </td>
+                <td class="tui-table__td text-right">
+                    <tui-toggle formControlName="participantsSelectAll" (pressedChange)="onSelectAllToggle($event)">
+                    </tui-toggle>
+                </td>
+            </tr>
+
+            <ng-container formArrayName="participants">
+
+                <tr class="tui-table__tr" *ngFor="let lessonForm of participantsControls.controls; let i = index">
+                    <td class="tui-table__td capitalize"> {{this.participants[i].name}} </td>
+                    <td class="tui-table__td text-right">
+                        <tui-toggle [formControlName]="i">
+                        </tui-toggle>
+                    </td>
+                </tr>
+
+            </ng-container>
+
+        </tbody>
+    </table>
+
+    <div class="tui-space_top-6 btn-wrapper">
+        <button tuiButton type="button" class="submit-btn" [size]="'s'" (click)="onSubmitClick()"> Assign </button>
+    </div>
+
+</div>

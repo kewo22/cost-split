@@ -1,0 +1,17 @@
+@import "~@taiga-ui/core/styles/taiga-ui-local";
+
+.add-participant-wrapper {
+  min-height: 100px;
+  .top-wrapper {
+    display: flex;
+    align-items: center;
+    .add-participant-input {
+      flex-grow: 1;
+    }
+  }
+}
+
+.tag {
+  @include gradient(#c86dd7, #5848e9);
+  color: var(--tui-text-01-night);
+}

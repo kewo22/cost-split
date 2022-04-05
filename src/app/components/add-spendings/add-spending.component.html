@@ -1,0 +1,35 @@
+<div class="add-spending-wrapper">
+
+    <div class="top-wrapper">
+        <tui-input tuiTextfieldSize="m" class="add-spending-input tui-space_right-2" [tuiTextfieldLabelOutside]="false"
+            [(ngModel)]="item">
+            Item
+            <input tuiTextfield type="text" />
+        </tui-input>
+
+        <tui-input-number tuiTextfieldSize="m" [(ngModel)]="cost" class="add-cost-input" [postfix]="null | tuiCurrency">
+            Cost
+        </tui-input-number>
+
+
+        <button tuiIconButton type="button" class="" [icon]="'tuiIconPlus'" [size]="'m'" appearance="icon"
+            (click)="onAddClick()"></button>
+    </div>
+
+    <div class="tui-space_top-6">
+
+        <ng-container *ngIf="spendingList.length else emptyTags">
+            <div class="spending-wrapper">
+                <app-spending *ngFor="let spending of spendingList; let index = index;" [spending]="spending"
+                    (onAddParticipant)="onAddParticipantClick($event)" class="tui-space_bottom-2">
+                </app-spending>
+            </div>
+        </ng-container>
+
+        <ng-template #emptyTags>
+            No participants yet, Type in participant's name and click add.
+        </ng-template>
+
+    </div>
+
+</div>

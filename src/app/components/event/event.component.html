@@ -1,0 +1,42 @@
+<tui-root>
+
+    <main appWidthFixer>
+
+        <tui-accordion class="container">
+
+            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(EVENT_INFO)">
+
+                <div>
+                    Event Info
+                </div>
+
+                <ng-template tuiAccordionItemContent>
+                    <app-event-info></app-event-info>
+                </ng-template>
+            </tui-accordion-item>
+
+            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(ADD_PARTICIPANTS)">
+                Add Participants
+                <ng-template tuiAccordionItemContent>
+                    <app-add-participant></app-add-participant>
+                </ng-template>
+            </tui-accordion-item>
+
+            <tui-accordion-item [size]="'s'" [open]="true" (click)="onAccordionStateClick(ADD_SPENDING)">
+                Add Spending
+                <ng-template tuiAccordionItemContent>
+                    <app-add-spending></app-add-spending>
+                </ng-template>
+            </tui-accordion-item>
+
+        </tui-accordion>
+
+<!-- 
+        <pre>
+        -- {{eventInfo$ | async | json}}
+        <br>
+        -- {{participant$ | async | json}}
+      </pre> -->
+    </main>
+
+</tui-root>

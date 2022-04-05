@@ -1,0 +1,29 @@
+<div class="add-participant-wrapper">
+
+    <div class="top-wrapper">
+        <tui-input tuiTextfieldSize="m" class="add-participant-input" [tuiTextfieldLabelOutside]="true"
+            [(ngModel)]="participant">
+            Name
+            <input tuiTextfield type="text" />
+        </tui-input>
+
+
+        <button tuiIconButton type="button" class="" [icon]="'tuiIconPlus'" [size]="'m'" appearance="icon"
+            (click)="onAddClick()"></button>
+    </div>
+
+    <div class="tui-space_top-6">
+
+        <ng-container *ngIf="participants.length else emptyTags">
+            <tui-tag class="tui-space_left-1 tui-space_bottom-3 tag capitalize" [value]="participant.name" [removable]="true"
+                size="l" status="custom" [hoverable]="true" (edited)="onEdit(participant)"
+                *ngFor="let participant of participants; let index = index;">
+            </tui-tag>
+        </ng-container>
+
+        <ng-template #emptyTags>
+            No participants yet, Type in participant's name and click add.
+        </ng-template>
+    </div>
+
+</div>

@@ -1,0 +1,3 @@
+export enum AccordionTypes {
+    EVENT_INFO, ADD_PARTICIPANTS, ADD_SPENDING, PER_PERSON_SPLIT
+}

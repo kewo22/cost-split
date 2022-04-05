@@ -1,0 +1,23 @@
+@import "~@taiga-ui/core/styles/taiga-ui-local";
+
+.add-spending-wrapper {
+  min-height: 100px;
+  .top-wrapper {
+    display: flex;
+    align-items: center;
+    .add-spending-input {
+      flex-grow: 1;
+    }
+    .add-cost-input {
+      flex: 0 0 4.5rem;
+    }
+  }
+}
+
+.spending-wrapper {
+  // display: flex;
+
+  // flex-wrap: wrap;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+}

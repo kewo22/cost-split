@@ -1,0 +1,23 @@
+<form class="b-form" [formGroup]="eventInformationForm" (ngSubmit)="onSubmit()">
+    <tui-input tuiTextfieldSize="m" formControlName="name">
+        Name
+        <input tuiTextfield type="text" />
+    </tui-input>
+
+    <tui-input tuiTextfieldSize="m" formControlName="location" class="tui-space_top-6">
+        Location
+        <input tuiTextfield type="text" />
+    </tui-input>
+
+    <div class="date-wrapper tui-space_top-6">
+        <button tuiIconButton type="button" appearance="secondary" shape="rounded" [size]="'m'" icon="tuiIconCalendar"
+            (click)="onClick()"></button>
+        <span class="date-text" [class.date_empty]="empty">{{date$ | async}}</span>
+    </div>
+
+    <button tuiButton type="submit" class="tui-space_top-6 submit-btn" [size]="'s'"
+        [disabled]="!eventInformationForm.valid">
+        Next
+    </button>
+
+</form>
