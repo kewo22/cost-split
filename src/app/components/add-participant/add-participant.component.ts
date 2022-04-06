@@ -28,7 +28,6 @@ export class AddParticipantComponent implements OnInit {
 
   onAddClick(): void {
     // test data
-
     this.store.dispatch(addParticipant({
       alreadyPaid: 0,
       due: 0,
@@ -52,7 +51,7 @@ export class AddParticipantComponent implements OnInit {
       isAssignedToSpending: false,
       name: 'ruka'
     }))
-
+    // test data
 
     if (!this.participant) return;
     const id = +(Date.now() + ((Math.random() * 100000).toFixed()));

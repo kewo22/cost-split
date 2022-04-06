@@ -3,9 +3,12 @@ import { EventI } from "../interfaces/event.interface";
 import { addEventInfo } from "./eventInfo.action";
 
 export const initialEventState: EventI = {
+    id: -1,
     date: new Date(),
     location: '',
     name: '',
+    participants: [],
+    spending: []
 };
 
 export const eventInfoReducer = createReducer(

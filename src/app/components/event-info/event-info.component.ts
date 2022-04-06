@@ -97,10 +97,14 @@ export class EventInfoComponent implements OnInit {
   }
 
   onSubmit() {
+    const id = +(Date.now() + ((Math.random() * 100000).toFixed()));
     const eventInfo: EventI = {
       date: this.eventInformationForm.value.date,
       location: this.eventInformationForm.value.location,
-      name: this.eventInformationForm.value.name
+      name: this.eventInformationForm.value.name,
+      participants: [],
+      spending: [],
+      id: id
     }
     this.store.dispatch(addEventInfo(eventInfo))
   }
