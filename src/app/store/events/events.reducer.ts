@@ -1,27 +1,16 @@
 import { ActionReducer, createReducer, INIT, on, UPDATE } from "@ngrx/store";
-import { EventI } from "../interfaces/event.interface";
-import { addEventInfo, updateEventInfo } from "./eventInfo.action";
+import { EventI } from "src/app/interfaces/event.interface";
+import { addEvents } from "./events.action";
 
-export const initialEventState: EventI = {
-    id: -1,
-    date: new Date(),
-    location: '',
-    name: '',
-    participants: [],
-    spending: [],
-    createdOn: new Date(),
-    totalSpent: 0
-};
+export const initialEventState: EventI[] = [];
 
-export const eventInfoReducer = createReducer(
+export const eventReducer = createReducer(
     initialEventState,
-    on(addEventInfo, (entries, eventInfo) => {
-        const clonedEvent = { ...eventInfo };
-
-        const totalSpent = clonedEvent.spending.map(item => item.cost).reduce((prev, curr) => prev + curr, 0);
-        clonedEvent.totalSpent = totalSpent;
-
-        return clonedEvent;
+    on(addEvents, (entries, eventsEntries) => {
+        console.log(entries, eventsEntries);
+        const clone: EventI[] = JSON.parse(JSON.stringify(entries));
+        clone.push(eventsEntries.events[0])
+        return clone
     }),
 );
 

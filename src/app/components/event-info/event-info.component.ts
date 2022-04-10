@@ -13,6 +13,7 @@ import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { addEventInfo } from 'src/app/store/eventInfo.action';
 import { EventI } from 'src/app/interfaces/event.interface';
 import { selectEventInfo } from 'src/app/store/eventInfo.selector';
+import { addEvents } from 'src/app/store/events/events.action';
 
 @Component({
   selector: 'app-event-info',
@@ -104,9 +105,12 @@ export class EventInfoComponent implements OnInit {
       name: this.eventInformationForm.value.name,
       participants: [],
       spending: [],
-      id: id
+      id: id,
+      createdOn: new Date(),
+      totalSpent: 0
     }
     this.store.dispatch(addEventInfo(eventInfo))
+    // this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
   }
 
 }

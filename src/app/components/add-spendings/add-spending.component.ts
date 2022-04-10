@@ -1,11 +1,12 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit, ViewChild } from '@angular/core';
 import { TuiDialogService } from '@taiga-ui/core';
 import { Spending } from 'src/app/interfaces/spending.interface';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { AssignParticipantComponent } from '../assign-participant/assign-participant.component';
 import { Store } from '@ngrx/store';
-import { addSpending, updateSpending } from 'src/app/store/spending/spending.action';
-import { selectSpending } from 'src/app/store/spending/spending.selector';
+import { EventI } from 'src/app/interfaces/event.interface';
+import { selectEventInfo } from 'src/app/store/eventInfo.selector';
+import { addEventInfo } from 'src/app/store/eventInfo.action';
 
 @Component({
   selector: 'app-add-spending',
@@ -14,12 +15,13 @@ import { selectSpending } from 'src/app/store/spending/spending.selector';
 })
 export class AddSpendingComponent implements OnInit {
 
+  @ViewChild("input") costInputField: any | null = null;
+
   item: string = '';
   cost: number | undefined;
 
+  event: EventI | null = null;
   addParticipantsTo: Spending | null = null;
-
-  spendingList: Spending[] = [];
 
   private dialog: any;
 
@@ -30,11 +32,14 @@ export class AddSpendingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.select(selectSpending).subscribe(spendingList => this.spendingList = [...spendingList]);
+    this.store.select(selectEventInfo).subscribe((event: EventI) => {
+      this.event = event;
+    })
   }
 
   onAddClick(): void {
-    if (this.cost && this.item) {
+    if (this.cost && this.item && this.event) {
+      const clonedEvent = { ...this.event };
       const id = +(Date.now() + ((Math.random() * 100000).toFixed()));
       const spending: Spending = {
         item: this.item,
@@ -42,12 +47,17 @@ export class AddSpendingComponent implements OnInit {
         id: id,
         participants: null
       }
-      this.spendingList = [...this.spendingList, spending];
-      this.store.dispatch(addSpending(spending));
+      const clonedSpending = [...clonedEvent.spending];
+      clonedSpending.push(spending);
+      clonedEvent.spending = [...clonedSpending];
+      this.store.dispatch(addEventInfo(clonedEvent));
+      this.cost = undefined;
+      this.item = '';
+      if (this.costInputField) this.costInputField.elementRef.nativeElement.focus();
     }
   }
 
-  initAssignParticipantDialog() {
+  initAssignParticipantDialog(): void {
     this.dialog = this.dialogService.open<Spending>(
       new PolymorpheusComponent(AssignParticipantComponent, this.injector),
       {
@@ -63,19 +73,43 @@ export class AddSpendingComponent implements OnInit {
     this.addParticipantsTo = { ...spending };
     this.initAssignParticipantDialog();
     this.dialog.subscribe({
-      next: (data: Spending) => {
-        const foundIndex = this.spendingList.findIndex(obj => {
-          return obj.id === data.id;
-        });
-        if (foundIndex !== -1) {
-          this.spendingList.splice(foundIndex, 1, data);
-          this.store.dispatch(updateSpending(data));
-        }
+      next: (spending: Spending) => {
+        this.addParticipantToSpending(spending);
       },
       complete: () => {
         console.info('Dialog closed');
       },
     });
+  }
+
+  addParticipantToSpending(spending: Spending): void {
+    if (this.event) {
+      const clonedEvent = { ...this.event };
+      const clonedSpending = [...clonedEvent.spending];
+      const foundSpendingIndex = clonedSpending.findIndex(clonedSpending => {
+        return clonedSpending.id === spending.id;
+      });
+      if (foundSpendingIndex !== -1) {
+        clonedSpending.splice(foundSpendingIndex, 1, spending);
+        clonedEvent.spending = [...clonedSpending];
+        this.store.dispatch(addEventInfo(clonedEvent))
+      }
+    }
+  }
+
+  onRemoveSpendingClick(spending: Spending): void {
+    if (this.event) {
+      const clonedEvent = { ...this.event };
+      const clonedSpending = [...clonedEvent.spending];
+      const foundSpendingIndex = clonedSpending.findIndex(clonedSpending => {
+        return clonedSpending.id === spending.id;
+      });
+      if (foundSpendingIndex !== -1) {
+        clonedSpending.splice(foundSpendingIndex, 1);
+        clonedEvent.spending = [...clonedSpending];
+        this.store.dispatch(addEventInfo(clonedEvent))
+      }
+    }
   }
 
 }

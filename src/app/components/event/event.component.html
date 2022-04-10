@@ -22,16 +22,23 @@
                 </ng-template>
             </tui-accordion-item>
 
-            <tui-accordion-item [size]="'s'" [open]="true" (click)="onAccordionStateClick(ADD_SPENDING)">
+            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(ADD_SPENDING)">
                 Add Spending
                 <ng-template tuiAccordionItemContent>
                     <app-add-spending></app-add-spending>
                 </ng-template>
             </tui-accordion-item>
 
+            <tui-accordion-item [size]="'s'" [open]="true" (click)="onAccordionStateClick(SUMMARY)">
+                Summary
+                <ng-template tuiAccordionItemContent>
+                    <app-summary></app-summary>
+                </ng-template>
+            </tui-accordion-item>
+
         </tui-accordion>
 
-<!-- 
+        <!-- 
         <pre>
         -- {{eventInfo$ | async | json}}
         <br>

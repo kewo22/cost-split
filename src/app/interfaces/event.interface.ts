@@ -8,4 +8,6 @@ export interface EventI {
     location: string;
     participants: Participant[]
     spending: Spending[];
+    createdOn: Date;
+    totalSpent: number
 }

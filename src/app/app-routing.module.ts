@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventComponent } from './components/event/event.component';
 import { HomeComponent } from './components/home/home.component';
+import { EventRegisteredGuard } from './guards/event-registered.guard';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'event',
-    component: EventComponent
+    component: EventComponent,
+    canActivate: [EventRegisteredGuard]
   }
 ];
 

@@ -1,0 +1,11 @@
+.total-spending {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: var(--tui-text-01-night);
+  background-color: var(--tui-primary-active);
+  padding: 1rem;
+
+  border-radius: 8px;
+}

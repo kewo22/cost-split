@@ -15,8 +15,10 @@
   display: flex;
   align-items: center;
   font-size: 1rem;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   font-weight: bold;
+
+  position: relative;
 
   .left-col {
     display: flex;
@@ -26,7 +28,18 @@
   }
 
   .right-col {
+    display: flex;
+    align-items: center;
+
     .users-avatar {
+    }
+  }
+}
+
+:host ::ng-deep .remove-btn {
+  .t-wrapper {
+    .t-content {
+      color: var(--tui-text-01-night);
     }
   }
 }

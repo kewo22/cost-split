@@ -1,8 +1,10 @@
 <div class="spending-wrapper">
+
     <div class="left-col tui-space_right-5" *ngIf="spending">
         <span class="tui-space_bottom-1 uppercase">{{spending.item}}</span>
         <tui-money [currency]="'Rs'" [value]="spending.cost"></tui-money>
     </div>
+
     <div class="right-col">
 
         <tui-badged-content colorTop="var(--tui-success-fill)" size="s" [contentTop]="badgeContent" [rounded]="true">
@@ -10,6 +12,9 @@
                 [avatarUrl]="'assets/icons/ph_users.svg'">
             </tui-avatar>
         </tui-badged-content>
+
+        <button tuiIconButton type="button" class="tui-space_left-6 remove-btn" [icon]="'tuiIconTrash'" size="xs" appearance="icon" 
+            (click)="onRemoveSpendingClick()"></button>
 
         <!-- <tui-badged-content colorTop="var(--tui-success-fill)" size="s" [contentTop]="1" [rounded]="true">
             <tui-avatar class="tui-space_top-1 users-avatar" size="s" [avatarUrl]="'assets/icons/ph_users.svg'"

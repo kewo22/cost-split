@@ -7,7 +7,6 @@ export const initialEventState: Participant[] = [];
 export const participantReducer = createReducer(
     initialEventState,
     on(addParticipant, (entries, participant) => {
-        console.log(entries)
         const clone: Participant[] = JSON.parse(JSON.stringify(entries));
         clone.push(participant)
         return clone

@@ -1,35 +1,34 @@
 <div class="homeWrapper">
     <h2 class="head">Cost Split</h2>
-<div class="homeTable">
-    <table class="tui-table">
-        <tbody class="tui-table__tr">
-            <tr class="tui-table__th">
-                <th class="tui-table__th">Name</th>
-                <th class="tui-table__th">Created Date</th>
-            </tr>
-            <tr class="tui-table__tr">
-                <td class="tui-table__td">Pravin</td>
-                <td class="tui-table__td">1.1.2022</td>
-            </tr>
-            <tr class="tui-table__tr">
-                <td class="tui-table__td">Kewin</td>
-                <td class="tui-table__td">5.6.2022</td>
-            </tr>
-        </tbody>
-    </table>
-    
-</div>
 
-    
-    <button routerLink="event"
-      tuiButton
-      type="button"
-      appearance="primary"
-      [size]="'s'"
-      class="tui-space_top-3 btn"
-    >
-      Create New Event
+    <!-- <div class="no-events" *ngIf="events$.length |async">
+
+    </div>
+ -->
+
+    <div class="homeTable">
+        <table class="tui-table">
+            <tbody class="tui-table__tr">
+                <tr class="tui-table__th">
+                    <th class="tui-table__th">Name</th>
+                    <th class="tui-table__th">Location</th>
+                    <th class="tui-table__th">Event Date</th>
+                    <th class="tui-table__th">Created On</th>
+                </tr>
+                <tr class="tui-table__tr" *ngFor="let event of events$ | async">
+                    <td class="tui-table__td">{{event.name}}</td>
+                    <td class="tui-table__td">{{event.location}}</td>
+                    <td class="tui-table__td">{{event.date | date}}</td>
+                    <td class="tui-table__td">{{event.createdOn | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- routerLink="event" -->
+    <button tuiButton type="button" appearance="primary" [size]="'s'" class="tui-space_top-3 btn" (click)="onCreateNewEvent()">
+        Create New Event
     </button>
-    
-</div>
 
+</div>

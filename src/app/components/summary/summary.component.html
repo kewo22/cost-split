@@ -1,0 +1,10 @@
+<div *ngIf="event">
+
+    <div class="total-spending tui-text_h6">
+        <span>TOTAL SPENT</span>
+        <span>
+            <tui-money [currency]="'LKR'" [value]="event.totalSpent"></tui-money>
+        </span>
+    </div>
+
+</div>

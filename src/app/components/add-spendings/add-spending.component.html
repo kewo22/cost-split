@@ -4,7 +4,7 @@
         <tui-input tuiTextfieldSize="m" class="add-spending-input tui-space_right-2" [tuiTextfieldLabelOutside]="false"
             [(ngModel)]="item">
             Item
-            <input tuiTextfield type="text" />
+            <input tuiTextfield type="text" #input />
         </tui-input>
 
         <tui-input-number tuiTextfieldSize="m" [(ngModel)]="cost" class="add-cost-input" [postfix]="null | tuiCurrency">
@@ -18,10 +18,11 @@
 
     <div class="tui-space_top-6">
 
-        <ng-container *ngIf="spendingList.length else emptyTags">
+        <ng-container *ngIf="event && event.spending.length else emptyTags">
             <div class="spending-wrapper">
-                <app-spending *ngFor="let spending of spendingList; let index = index;" [spending]="spending"
-                    (onAddParticipant)="onAddParticipantClick($event)" class="tui-space_bottom-2">
+                <app-spending *ngFor="let spending of event.spending; let index = index;" [spending]="spending"
+                    (onAddParticipant)="onAddParticipantClick($event)"
+                    (onRemoveSpending)="onRemoveSpendingClick($event)" class="tui-space_bottom-2">
                 </app-spending>
             </div>
         </ng-container>

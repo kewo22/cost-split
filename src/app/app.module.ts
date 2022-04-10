@@ -19,6 +19,8 @@ import { AssignParticipantComponent } from './components/assign-participant/assi
 import { spendingReducer } from "./store/spending/spedning.reducer";
 import { HomeComponent } from './components/home/home.component';
 import { EventComponent } from './components/event/event.component';
+import { eventReducer } from "./store/events/events.reducer";
+import { SummaryComponent } from './components/summary/summary.component';
 // import { TuiCalendarComponent } from "@taiga-ui/core";
 
 @NgModule({
@@ -32,6 +34,7 @@ import { EventComponent } from './components/event/event.component';
     AssignParticipantComponent,
     HomeComponent,
     EventComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { EventComponent } from './components/event/event.component';
         eventInfoEntries: eventInfoReducer,
         participantEntries: participantReducer,
         spendingEntries: spendingReducer,
+        eventEntries: eventReducer,
       },
       {
         metaReducers: [metaReducerLocalStorage]

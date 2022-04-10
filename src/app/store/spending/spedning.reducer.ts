@@ -1,6 +1,6 @@
 import { ActionReducer, createReducer, INIT, on, UPDATE } from "@ngrx/store";
 import { Spending } from "src/app/interfaces/spending.interface";
-import { addSpending, updateSpending } from "./spending.action";
+import { addSpending, removeSpending, updateSpending } from "./spending.action";
 
 export const initialEventState: Spending[] = [];
 
@@ -21,14 +21,14 @@ export const spendingReducer = createReducer(
         }
         return clone
     }),
-    // on(removeParticipant, (entries, participant) => {
-    //     const clone: Participant[] = JSON.parse(JSON.stringify(entries));
-    //     const foundIndex = clone.findIndex(obj => { return participant.id === obj.id; });
-    //     if (foundIndex !== -1) {
-    //         clone.splice(foundIndex, 1);
-    //     }
-    //     return clone
-    // }),
+    on(removeSpending, (entries, spending) => {
+        const clone: Spending[] = JSON.parse(JSON.stringify(entries));
+        const foundIndex = clone.findIndex(obj => { return spending.id === obj.id; });
+        if (foundIndex !== -1) {
+            clone.splice(foundIndex, 1);
+        }
+        return clone
+    }),
 );
 
 export const metaReducerLocalStorage = (reducer: ActionReducer<any>): ActionReducer<any> => {

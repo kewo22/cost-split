@@ -11,6 +11,7 @@ export class SpendingComponent implements OnInit {
   @Input() spending: Spending | null = null;
 
   @Output() onAddParticipant = new EventEmitter<Spending>();
+  @Output() onRemoveSpending = new EventEmitter<Spending>();
 
   badgeContent: string | number = '';
 
@@ -23,6 +24,11 @@ export class SpendingComponent implements OnInit {
   onAvatarClick(): void {
     if (this.spending)
       this.onAddParticipant.emit(this.spending);
+  }
+
+  onRemoveSpendingClick(): void {
+    if (this.spending)
+      this.onRemoveSpending.emit(this.spending);
   }
 
 }
