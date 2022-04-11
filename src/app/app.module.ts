@@ -21,6 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 import { EventComponent } from './components/event/event.component';
 import { eventReducer } from "./store/events/events.reducer";
 import { SummaryComponent } from './components/summary/summary.component';
+import { DueMinusIndicatorDirective } from "./directives/due-minus-indicator.directive";
 // import { TuiCalendarComponent } from "@taiga-ui/core";
 
 @NgModule({
@@ -35,6 +36,7 @@ import { SummaryComponent } from './components/summary/summary.component';
     HomeComponent,
     EventComponent,
     SummaryComponent,
+    DueMinusIndicatorDirective
   ],
   imports: [
     BrowserModule,

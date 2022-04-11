@@ -14,7 +14,40 @@
   }
 }
 
-.tag {
-  @include gradient(#c86dd7, #5848e9);
+// .tag {
+//   @include gradient(#c86dd7, #5848e9);
+//   color: var(--tui-text-01-night);
+// }
+
+.participants-wrapper {
+  background: var(--tui-primary-active);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   color: var(--tui-text-01-night);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left-content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+}
+
+:host ::ng-deep .remove-btn {
+  .t-wrapper {
+    .t-content {
+      color: var(--tui-negative);
+    }
+  }
+}
+
+:host ::ng-deep .edit-btn {
+  .t-wrapper {
+    .t-content {
+      color: var(--tui-text-01-night);
+    }
+  }
 }

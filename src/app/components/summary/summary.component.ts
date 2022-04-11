@@ -34,14 +34,24 @@ export class SummaryComponent implements OnInit {
       const clonedEvent: EventI = { ...this.event };
       const updatedParticipants = clonedEvent.participants.map((participant: Participant) => ({
         ...participant,
-        due: this.getParticipantDue(clonedEvent, participant)
-
+        cost: this.getParticipantCost(clonedEvent, participant)
       }));
       clonedEvent.participants = [...updatedParticipants];
       this.event = { ...clonedEvent };
     }
 
+    
+    if (this.event) {
+      const clonedEvent: EventI = { ...this.event };
+      const updatedParticipants = clonedEvent.participants.map((participant: Participant) => ({
+        ...participant,
+        due: this.getParticipantDue(participant)
+      }));
+      clonedEvent.participants = [...updatedParticipants];
+      this.event = { ...clonedEvent };
+    }
     console.log(this.event)
+
 
   }
 
@@ -50,11 +60,12 @@ export class SummaryComponent implements OnInit {
 
   getPerPersonCost(spending: Spending): Participant[] | null {
     if (spending.participants) {
+      // const costPerParticipant = spending.cost / spending.participants?.length;
       const costPerParticipant = Math.ceil(spending.cost / spending.participants?.length);
       const clonedParticipants: Participant[] = [...spending.participants];
       const result: Participant[] = clonedParticipants.map(o => ({
         ...o,
-        due: costPerParticipant,
+        cost: costPerParticipant,
       }));
       return result;
     } else {
@@ -62,16 +73,21 @@ export class SummaryComponent implements OnInit {
     }
   }
 
-  getParticipantDue(event: EventI, participant: Participant): number {
-    let participantDue = 0;
+  getParticipantCost(event: EventI, participant: Participant): number {
+    let participantCost = 0;
     event.spending.forEach((spending: Spending) => {
       const foundParticipant = spending.participants?.find(obj => {
         return obj.id === participant.id
       });
       if (foundParticipant) {
-        participantDue = participantDue + foundParticipant.due;
+        participantCost = participantCost + foundParticipant.cost;
       }
     });
+    return participantCost;
+  }
+
+  getParticipantDue(participant: Participant): number {
+    let participantDue = participant.alreadyPaid - participant.cost;
     return participantDue;
   }
 

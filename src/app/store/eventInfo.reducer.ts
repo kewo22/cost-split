@@ -19,6 +19,9 @@ export const eventInfoReducer = createReducer(
         const clonedEvent = { ...eventInfo };
 
         const totalSpent = clonedEvent.spending.map(item => item.cost).reduce((prev, curr) => prev + curr, 0);
+        // console.log(Math.floor(totalSpent))
+        // console.log(Math.ceil(totalSpent))
+        // console.log(Math.round(totalSpent))
         clonedEvent.totalSpent = totalSpent;
 
         return clonedEvent;

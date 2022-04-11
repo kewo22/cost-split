@@ -9,3 +9,35 @@
 
   border-radius: 8px;
 }
+
+.summaries {
+  .summary {
+    display: flex;
+    align-items: center;
+    background: var(--tui-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--tui-text-01);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      .label {
+        opacity: 0.7;
+      }
+    }
+
+    .participant {
+      flex: 0 0 25% !important;
+    }
+    .cost {
+      flex: 0 0 25% !important;
+    }
+    .paid {
+      flex: 0 0 25% !important;
+    }
+    .due {
+      flex: 0 0 25% !important;
+    }
+  }
+}

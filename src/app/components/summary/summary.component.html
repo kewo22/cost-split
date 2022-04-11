@@ -7,4 +7,33 @@
         </span>
     </div>
 
+    <div class="summaries tui-space_top-6">
+
+        <div class="summary tui-space_top-3" *ngFor="let participant of event.participants">
+
+            <div class="participant">
+                <span class="label">Participant</span>
+                <span class="tui-text-body-m-2 capitalize">{{participant.name}}</span>
+            </div>
+
+            <div class="cost">
+                <span class="label">Cost</span>
+                <tui-money [currency]="'Rs'" [value]="participant.cost" class="tui-text-body-m-2"></tui-money>
+            </div>
+
+            <div class="paid">
+                <span class="label">Paid</span>
+                <tui-money [currency]="'Rs'" [value]="participant.alreadyPaid" class="tui-text-body-m-2"></tui-money>
+            </div>
+
+            <div class="due">
+                <span class="label">Due</span>
+                <tui-money [currency]="'Rs'" [value]="participant.due" appDueIndicator [due]="participant.due"
+                    class="font-weight-bold tui-text-body-m-2"></tui-money>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>

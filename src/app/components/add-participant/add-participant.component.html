@@ -2,7 +2,7 @@
 
     <div class="top-wrapper">
         <tui-input tuiTextfieldSize="m" class="add-participant-input tui-space_right-2"
-            [tuiTextfieldLabelOutside]="false" [(ngModel)]="participant">
+            [tuiTextfieldLabelOutside]="false" [(ngModel)]="participantName">
             Participant
             <input tuiTextfield type="text" #input />
         </tui-input>
@@ -15,17 +15,28 @@
 
         <button tuiIconButton type="button" class="" [icon]="'tuiIconPlus'" [size]="'m'" appearance="icon"
             (click)="onAddClick()"></button>
+
     </div>
 
     <div class="tui-space_top-6">
 
         <ng-container *ngIf="event && event.participants.length else emptyTags">
 
-            <tui-tag class="tui-space_left-1 tui-space_bottom-3 tag capitalize"
-                [value]="participant.name + ' - ' + participant.alreadyPaid" [removable]="true" size="l" status="custom"
-                [hoverable]="true" (edited)="onRemoveParticipant(participant)"
+            <div class="participants-wrapper tui-space_bottom-2"
                 *ngFor="let participant of event.participants; let index = index;">
-            </tui-tag>
+
+                <div class="tui-text_body-m tui-space_right-2 left-content">
+                    <div class="capitalize">{{participant.name}}</div>
+                    <tui-money [currency]="'Rs'" [value]="participant.alreadyPaid"></tui-money>
+                </div>
+
+                <div>
+                    <button tuiIconButton type="button" class="edit-btn" [icon]="'tuiIconDraft'" [size]="'s'"
+                        appearance="icon" (click)="onEditClick(participant)"></button>
+                    <button tuiIconButton type="button" class="remove-btn" [icon]="'tuiIconTrash'" [size]="'s'"
+                        appearance="icon" (click)="onRemoveParticipant(participant)"></button>
+                </div>
+            </div>
 
         </ng-container>
 
