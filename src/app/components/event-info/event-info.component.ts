@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Injector, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -23,6 +23,8 @@ import { addEvents } from 'src/app/store/events/events.action';
 })
 
 export class EventInfoComponent implements OnInit {
+
+  @Output() onEventInfoAdded = new EventEmitter();
 
   readonly eventInformationForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -66,7 +68,7 @@ export class EventInfoComponent implements OnInit {
       size: 'fullscreen',
       closeable: false,
       data: {
-        // min: TuiDay.currentLocal(),
+        max: TuiDay.currentLocal(),
       },
     });
   }
@@ -74,6 +76,14 @@ export class EventInfoComponent implements OnInit {
   ngOnInit(): void {
 
     this.store.select(selectEventInfo).subscribe((eventInfo: EventI) => {
+      setTimeout(() => {
+        if (eventInfo.date) {
+          const d = new Date(eventInfo.date).getDate();
+          const m = new Date(eventInfo.date).getMonth();
+          const y = new Date(eventInfo.date).getFullYear();
+          this.eventDateControl.setValue(new TuiDay(y, m, d));
+        }
+      }, 1);
       this.eventInformationForm.controls['name'].setValue(eventInfo.name)
       this.eventInformationForm.controls['location'].setValue(eventInfo.location)
     })
@@ -109,7 +119,8 @@ export class EventInfoComponent implements OnInit {
       createdOn: new Date(),
       totalSpent: 0
     }
-    this.store.dispatch(addEventInfo(eventInfo))
+    this.store.dispatch(addEventInfo(eventInfo));
+    this.onEventInfoAdded.emit();
     // this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
   }
 

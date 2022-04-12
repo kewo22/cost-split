@@ -4,7 +4,7 @@ import { addEventInfo, updateEventInfo } from "./eventInfo.action";
 
 export const initialEventState: EventI = {
     id: -1,
-    date: new Date(),
+    date: null,
     location: '',
     name: '',
     participants: [],
@@ -17,13 +17,13 @@ export const eventInfoReducer = createReducer(
     initialEventState,
     on(addEventInfo, (entries, eventInfo) => {
         const clonedEvent = { ...eventInfo };
-
+        
         const totalSpent = clonedEvent.spending.map(item => item.cost).reduce((prev, curr) => prev + curr, 0);
         // console.log(Math.floor(totalSpent))
         // console.log(Math.ceil(totalSpent))
         // console.log(Math.round(totalSpent))
         clonedEvent.totalSpent = totalSpent;
-
+        
         return clonedEvent;
     }),
 );

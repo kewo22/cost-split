@@ -4,7 +4,7 @@ import { Spending } from "./spending.interface";
 export interface EventI {
     id: number;
     name: string;
-    date: Date;
+    date: Date | null;
     location: string;
     participants: Participant[]
     spending: Spending[];

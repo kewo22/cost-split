@@ -4,32 +4,28 @@
 
         <tui-accordion class="container">
 
-            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(EVENT_INFO)">
-
-                <div>
-                    Event Info
-                </div>
-
+            <tui-accordion-item [size]="'s'" [open]="isEventInfoOpen" (click)="onAccordionStateClick(EVENT_INFO)">
+                Event Info
                 <ng-template tuiAccordionItemContent>
-                    <app-event-info></app-event-info>
+                    <app-event-info (onEventInfoAdded)="onEventInfoAdded()"></app-event-info>
                 </ng-template>
             </tui-accordion-item>
 
-            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(ADD_PARTICIPANTS)">
+            <tui-accordion-item [size]="'s'" [open]="isAddParticipantOpen" (click)="onAccordionStateClick(ADD_PARTICIPANTS)">
                 Add Participants
                 <ng-template tuiAccordionItemContent>
                     <app-add-participant></app-add-participant>
                 </ng-template>
             </tui-accordion-item>
 
-            <tui-accordion-item [size]="'s'" (click)="onAccordionStateClick(ADD_SPENDING)">
+            <tui-accordion-item [size]="'s'" [open]="isAddSpendingOpen" (click)="onAccordionStateClick(ADD_SPENDING)">
                 Add Spending
                 <ng-template tuiAccordionItemContent>
                     <app-add-spending></app-add-spending>
                 </ng-template>
             </tui-accordion-item>
 
-            <tui-accordion-item [size]="'s'" [open]="true" (click)="onAccordionStateClick(SUMMARY)">
+            <tui-accordion-item [size]="'s'" [open]="isSummaryOpen" (click)="onAccordionStateClick(SUMMARY)">
                 Summary
                 <ng-template tuiAccordionItemContent>
                     <app-summary></app-summary>

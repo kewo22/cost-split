@@ -15,6 +15,11 @@ export class EventComponent implements OnInit {
   readonly PER_PERSON_SPLIT = AccordionTypes.PER_PERSON_SPLIT;
   readonly SUMMARY = AccordionTypes.SUMMARY;
 
+  isEventInfoOpen: boolean = true;
+  isAddParticipantOpen: boolean = false;
+  isAddSpendingOpen: boolean = false;
+  isSummaryOpen: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void { }
@@ -23,4 +28,10 @@ export class EventComponent implements OnInit {
     // console.log(e)
   }
 
+  onEventInfoAdded(): void {
+    this.isEventInfoOpen = false;
+    this.isAddParticipantOpen = true;
+    this.isAddSpendingOpen = false;
+    this.isSummaryOpen = false;
+  }
 }
