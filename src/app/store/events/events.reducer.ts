@@ -7,9 +7,18 @@ export const initialEventState: EventI[] = [];
 export const eventReducer = createReducer(
     initialEventState,
     on(addEvents, (entries, eventsEntries) => {
-        console.log(entries, eventsEntries);
+
+        const foundEventIndex = entries.findIndex(obj => {
+            return obj.id === eventsEntries.events[0].id
+        });
         const clone: EventI[] = JSON.parse(JSON.stringify(entries));
-        clone.push(eventsEntries.events[0])
+
+        if (foundEventIndex !== -1) {
+            clone.splice(foundEventIndex, 1, eventsEntries.events[0]);
+        } else {
+            clone.push(eventsEntries.events[0]);
+        }
+
         return clone
     }),
 );

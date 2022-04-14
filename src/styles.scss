@@ -2,8 +2,28 @@
 
 // @import "~@taiga-ui/core/styles/taiga-ui-local";
 
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/font/Nunito-Black.ttf") format("truetype");
+}
+
+:host {
+  --tui-font-text: "Nunito", sans-serif;
+  --tui-heading-font: "Nunito", sans-serif;
+  --tui-text-font: "Nunito", sans-serif;
+  // --tui-font-text-m: bold 1rem/1.5rem var(--tui-font-text);
+  // --tui-font-text-s: normal 0.5rem/1.25rem var(--tui-font-text);
+  // --tui-primary: #c86dd7;
+  // --tui-primary-hover: #a456b1;
+  // --tui-primary-active: #7f3b8a;
+  // --tui-primary-text: #fff;
+  // --tui-radius-s: 0;
+  // --tui-radius-m: 0.25rem;
+  // --tui-height-l: 4.375rem;
+}
+
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif !important;
 }
 
 .uppercase {

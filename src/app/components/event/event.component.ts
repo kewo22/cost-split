@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AccordionTypes } from 'src/app/enums/accordion-types.enum';
 
@@ -20,7 +21,9 @@ export class EventComponent implements OnInit {
   isAddSpendingOpen: boolean = false;
   isSummaryOpen: boolean = false;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void { }
 
@@ -33,5 +36,9 @@ export class EventComponent implements OnInit {
     this.isAddParticipantOpen = true;
     this.isAddSpendingOpen = false;
     this.isSummaryOpen = false;
+  }
+
+  onGoToHome(): void {
+    this.router.navigate(['/'])
   }
 }

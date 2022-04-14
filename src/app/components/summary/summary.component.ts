@@ -5,6 +5,12 @@ import { Participant } from 'src/app/interfaces/participant.interface';
 import { Spending } from 'src/app/interfaces/spending.interface';
 import { selectEventInfo } from 'src/app/store/eventInfo.selector';
 
+import * as htmlToImage from 'html-to-image';
+import { toPng } from 'html-to-image';
+import { addEvents } from 'src/app/store/events/events.action';
+import { addEventInfo } from 'src/app/store/eventInfo.action';
+import { initialEventState } from 'src/app/store/eventInfo.reducer';
+
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
@@ -40,7 +46,7 @@ export class SummaryComponent implements OnInit {
       this.event = { ...clonedEvent };
     }
 
-    
+
     if (this.event) {
       const clonedEvent: EventI = { ...this.event };
       const updatedParticipants = clonedEvent.participants.map((participant: Participant) => ({
@@ -89,6 +95,46 @@ export class SummaryComponent implements OnInit {
   getParticipantDue(participant: Participant): number {
     let participantDue = participant.alreadyPaid - participant.cost;
     return participantDue;
+  }
+
+
+  onGenerateSummaryImage(): void {
+
+    if (this.event) {
+      this.store.dispatch(addEvents({ events: [this.event] })) // all events push
+      this.store.dispatch(addEventInfo(initialEventState));
+    }
+
+    // // debugger
+    // var node = document.querySelector('#summary') as HTMLDivElement;
+
+    // if (node) {
+    //   htmlToImage.toPng(node, {
+    //     // canvasHeight: 500,
+    //     // canvasWidth: 400,
+    //     // height: 1000,
+    //     // width: 2000,
+    //     // style: {
+    //     //   width: '800px',
+    //     //   height: '800px'
+    //     // }
+    //   })
+    //     .then(function (dataUrl) {
+    //       var img = new Image();
+    //       img.src = dataUrl;
+
+    //       if (node) node.appendChild(img);
+
+    //       const downloadLink = document.createElement("a");
+    //       downloadLink.href = dataUrl;
+    //       downloadLink.download = 'fileName';
+    //       downloadLink.click();
+    //     })
+    //     .catch(function (error) {
+    //       console.error('oops, something went wrong!', error);
+    //     });
+    // }
+
   }
 
 }

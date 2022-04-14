@@ -1,13 +1,13 @@
 <div *ngIf="event">
 
-    <div class="total-spending tui-text_h6">
+    <div class="total-spending tui-text_h6" (click)="onGenerateSummaryImage()">
         <span>TOTAL SPENT</span>
         <span>
             <tui-money [currency]="'LKR'" [value]="event.totalSpent"></tui-money>
         </span>
     </div>
 
-    <div class="summaries tui-space_top-6">
+    <div class="summaries tui-space_top-6" id="summary">
 
         <div class="summary tui-space_top-3" *ngFor="let participant of event.participants">
 
@@ -35,5 +35,9 @@
         </div>
 
     </div>
+
+</div>
+
+<div >
 
 </div>

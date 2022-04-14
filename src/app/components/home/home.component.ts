@@ -4,7 +4,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EventI } from 'src/app/interfaces/event.interface';
 import { addEventInfo } from 'src/app/store/eventInfo.action';
+import { initialEventState } from 'src/app/store/eventInfo.reducer';
 import { selectEvents } from 'src/app/store/events/event.selector';
+import { addEvents } from 'src/app/store/events/events.action';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ import { selectEvents } from 'src/app/store/events/event.selector';
 })
 export class HomeComponent implements OnInit {
 
-  events$: Observable<EventI[]>;
+  events$: Observable<EventI[]> | null = null;
 
   constructor(
     private store: Store,
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(addEventInfo(initialEventState));
   }
 
   onCreateNewEvent(): void {
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
       totalSpent: 0
     }
     this.store.dispatch(addEventInfo(eventInfo))
+    this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
     this.router.navigate(['event']);
   }
 

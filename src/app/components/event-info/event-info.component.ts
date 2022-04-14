@@ -25,6 +25,7 @@ import { addEvents } from 'src/app/store/events/events.action';
 export class EventInfoComponent implements OnInit {
 
   @Output() onEventInfoAdded = new EventEmitter();
+  event: EventI | null = null;
 
   readonly eventInformationForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -48,6 +49,11 @@ export class EventInfoComponent implements OnInit {
     @Inject(TUI_MONTHS) private readonly months: Observable<string[]>,
     private store: Store
   ) {
+
+    this.store.select(selectEventInfo).subscribe((event: EventI) => {
+      this.event = { ...event };
+    });
+
     const dataStream = tuiReplayedValueChangesFrom(this.eventDateControl);
     const computedInjector = Injector.create({
       providers: [
@@ -108,20 +114,17 @@ export class EventInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    const id = +(Date.now() + ((Math.random() * 100000).toFixed()));
-    const eventInfo: EventI = {
-      date: this.eventInformationForm.value.date,
-      location: this.eventInformationForm.value.location,
-      name: this.eventInformationForm.value.name,
-      participants: [],
-      spending: [],
-      id: id,
-      createdOn: new Date(),
-      totalSpent: 0
+    if (this.event) {
+      const eventInfo: EventI = {
+        ...this.event,
+        date: this.eventInformationForm.value.date,
+        location: this.eventInformationForm.value.location,
+        name: this.eventInformationForm.value.name,
+      }
+      this.store.dispatch(addEventInfo(eventInfo));
+      this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
+      this.onEventInfoAdded.emit();
     }
-    this.store.dispatch(addEventInfo(eventInfo));
-    this.onEventInfoAdded.emit();
-    // this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
   }
 
 }

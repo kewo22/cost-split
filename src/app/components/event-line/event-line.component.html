@@ -1,0 +1,35 @@
+<div class="wrapper tui-space_bottom-4" *ngIf="event">
+
+    <div class="top-section">
+        <div>
+            <div>
+                <span class="tui-text_body-s label">Event</span>
+                {{event.name ? event.name :'-' }}
+            </div>
+            <div>
+                <span class="tui-text_body-s label">Location</span>
+                {{event.location ? event.location : '-'}}
+            </div>
+        </div>
+        <div>
+            <button tuiIconButton type="button" appearance="flat" class="view-btn" [icon]="'tuiIconEyeOpen'"
+                [size]="'xs'" (click)="onViewClick()"></button>
+            <button tuiIconButton type="button" appearance="flat" class="download-btn" [icon]="'tuiIconDownload'"
+                [size]="'xs'" (click)="onDownloadClick()"></button>
+            <button tuiIconButton type="button" appearance="flat" class="delete-btn" [icon]="'tuiIconTrash'"
+                [size]="'xs'" (click)="onDeleteClick()"></button>
+            <!--   (click)="onClick($event)" -->
+        </div>
+    </div>
+    <div class="dates-wrapper">
+        <div>
+            <span class="tui-text_body-s label">Date</span>
+            {{event.date | date}}
+        </div>
+        <div>
+            <span class="tui-text_body-s label">Created On</span>
+            {{event.createdOn | date}}
+        </div>
+    </div>
+
+</div>
