@@ -24,7 +24,7 @@ import { addEvents } from 'src/app/store/events/events.action';
 
 export class EventInfoComponent implements OnInit {
 
-  @Output() onEventInfoAdded = new EventEmitter();
+  @Output() OnAutoSave = new EventEmitter<boolean>(false);
   event: EventI | null = null;
 
   readonly eventInformationForm = new FormGroup({
@@ -103,27 +103,57 @@ export class EventInfoComponent implements OnInit {
   getParsed(value: TuiDay, months: string[]): string {
     if (!value) { return 'Choose a date'; }
     const { month, day, year } = value as TuiDay;
-    this.eventInformationForm.controls['date'].setValue(new Date(year, month, day))
+    this.eventInformationForm.controls['date'].setValue(new Date(year, month, day));
     return `${months[month]} ${day}, ${year}`;
   }
 
   onClick() {
     this.dialog$.subscribe(value => {
       this.eventDateControl.setValue(value);
+      this.eventInformationForm.controls['date'].setValue(new Date(value.year, value.month, value.day));
+      this.saveDateToState();
     });
   }
 
-  onSubmit() {
+  onEventNameBlur(): void {
     if (this.event) {
+      // this.OnAutoSave.emit(true);
       const eventInfo: EventI = {
         ...this.event,
-        date: this.eventInformationForm.value.date,
-        location: this.eventInformationForm.value.location,
         name: this.eventInformationForm.value.name,
       }
       this.store.dispatch(addEventInfo(eventInfo));
-      this.store.dispatch(addEvents({ events: [eventInfo] })) // all events push
-      this.onEventInfoAdded.emit();
+      this.store.dispatch(addEvents({ events: [eventInfo] }))
+      // setTimeout(() => { this.OnAutoSave.emit(false); }, 2000);
+    }
+
+  }
+
+  onEventLocationBlur(): void {
+    if (this.event) {
+      // this.OnAutoSave.emit(true);
+      const eventInfo: EventI = {
+        ...this.event,
+        location: this.eventInformationForm.value.location,
+      }
+      this.store.dispatch(addEventInfo(eventInfo));
+      this.store.dispatch(addEvents({ events: [eventInfo] }))
+      // setTimeout(() => { this.OnAutoSave.emit(false); }, 2000);
+
+    }
+  }
+
+  saveDateToState(): void {
+    if (this.event) {
+      // this.OnAutoSave.emit(true);
+      const eventInfo: EventI = {
+        ...this.event,
+        date: this.eventInformationForm.value.date,
+      }
+      this.store.dispatch(addEventInfo(eventInfo));
+      this.store.dispatch(addEvents({ events: [eventInfo] }));
+      // setTimeout(() => { this.OnAutoSave.emit(false); }, 2000);
+
     }
   }
 

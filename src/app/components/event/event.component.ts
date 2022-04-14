@@ -21,6 +21,8 @@ export class EventComponent implements OnInit {
   isAddSpendingOpen: boolean = false;
   isSummaryOpen: boolean = false;
 
+  isAutoSaving: boolean = false;
+
   constructor(
     private router: Router
   ) { }
@@ -31,14 +33,11 @@ export class EventComponent implements OnInit {
     // console.log(e)
   }
 
-  onEventInfoAdded(): void {
-    this.isEventInfoOpen = false;
-    this.isAddParticipantOpen = true;
-    this.isAddSpendingOpen = false;
-    this.isSummaryOpen = false;
-  }
-
   onGoToHome(): void {
     this.router.navigate(['/'])
+  }
+
+  onAutoSave(e: boolean): void {
+    this.isAutoSaving = e;
   }
 }

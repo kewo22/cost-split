@@ -2,15 +2,21 @@
 
 <main>
 
-    <button tuiButton type="button" class="tui-space_right-3 tui-space_bottom-3" [icon]="'tuiIconChevronLeft'" [size]="'s'"
-        (click)="onGoToHome()">Home</button>
+    <div class="top-section tui-space_bottom-3">
+        <button tuiButton type="button" class="" [icon]="'tuiIconChevronLeft'" [size]="'s'"
+            (click)="onGoToHome()">Home</button>
+
+        <div class="tui-text_body-xs" *ngIf="isAutoSaving">
+            Your changes are being saved 😎
+        </div>
+    </div>
 
     <tui-accordion class="container">
 
         <tui-accordion-item [size]="'s'" [open]="isEventInfoOpen" (click)="onAccordionStateClick(EVENT_INFO)">
             Event Info
             <ng-template tuiAccordionItemContent>
-                <app-event-info (onEventInfoAdded)="onEventInfoAdded()"></app-event-info>
+                <app-event-info (OnAutoSave)="onAutoSave($event)"></app-event-info>
             </ng-template>
         </tui-accordion-item>
 

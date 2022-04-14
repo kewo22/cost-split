@@ -1,12 +1,12 @@
-<form class="b-form" [formGroup]="eventInformationForm" (ngSubmit)="onSubmit()">
+<form class="b-form" [formGroup]="eventInformationForm">
     <tui-input tuiTextfieldSize="m" formControlName="name">
-        Name
-        <input tuiTextfield type="text" />
+        Event Name
+        <input tuiTextfield type="text" (blur)="onEventNameBlur()" />
     </tui-input>
 
     <tui-input tuiTextfieldSize="m" formControlName="location" class="tui-space_top-6">
         Location
-        <input tuiTextfield type="text" />
+        <input tuiTextfield type="text" (blur)="onEventLocationBlur()" />
     </tui-input>
 
     <div class="date-wrapper tui-space_top-6">
@@ -14,10 +14,4 @@
             (click)="onClick()"></button>
         <span class="date-text" [class.date_empty]="empty">{{date$ | async}}</span>
     </div>
-
-    <button tuiButton type="submit" class="tui-space_top-6 submit-btn" [size]="'s'"
-        [disabled]="!eventInformationForm.valid">
-        Next
-    </button>
-
 </form>
