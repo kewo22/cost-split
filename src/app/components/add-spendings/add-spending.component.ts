@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { EventI } from 'src/app/interfaces/event.interface';
 import { selectEventInfo } from 'src/app/store/eventInfo.selector';
 import { addEventInfo } from 'src/app/store/eventInfo.action';
+import { addEvents } from 'src/app/store/events/events.action';
 
 @Component({
   selector: 'app-add-spending',
@@ -51,6 +52,7 @@ export class AddSpendingComponent implements OnInit {
       clonedSpending.push(spending);
       clonedEvent.spending = [...clonedSpending];
       this.store.dispatch(addEventInfo(clonedEvent));
+      this.updateFullState(clonedSpending);
       this.cost = undefined;
       this.item = '';
       if (this.costInputField) this.costInputField.elementRef.nativeElement.focus();
@@ -92,7 +94,8 @@ export class AddSpendingComponent implements OnInit {
       if (foundSpendingIndex !== -1) {
         clonedSpending.splice(foundSpendingIndex, 1, spending);
         clonedEvent.spending = [...clonedSpending];
-        this.store.dispatch(addEventInfo(clonedEvent))
+        this.store.dispatch(addEventInfo(clonedEvent));
+        this.updateFullState(clonedSpending);
       }
     }
   }
@@ -107,9 +110,25 @@ export class AddSpendingComponent implements OnInit {
       if (foundSpendingIndex !== -1) {
         clonedSpending.splice(foundSpendingIndex, 1);
         clonedEvent.spending = [...clonedSpending];
-        this.store.dispatch(addEventInfo(clonedEvent))
+        this.store.dispatch(addEventInfo(clonedEvent));
+        this.updateFullState(clonedSpending);
+
       }
     }
+  }
+
+  updateFullState(spending: Spending[]): void {
+    if (this.event) {
+      // this.OnAutoSave.emit(true);
+      const eventInfo: EventI = {
+        ...this.event,
+        spending: spending,
+      }
+      this.store.dispatch(addEventInfo(eventInfo));
+      this.store.dispatch(addEvents({ events: [eventInfo] }))
+      // setTimeout(() => { this.OnAutoSave.emit(false); }, 2000);
+    }
+
   }
 
 }
