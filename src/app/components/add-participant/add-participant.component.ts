@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { TuiNotification, TuiNotificationsService } from '@taiga-ui/core';
-import { Observable } from 'rxjs';
 import { EventI } from 'src/app/interfaces/event.interface';
 import { Participant } from 'src/app/interfaces/participant.interface';
 import { addEventInfo } from 'src/app/store/eventInfo.action';
 import { selectEventInfo } from 'src/app/store/eventInfo.selector';
 import { selectEvents } from 'src/app/store/events/event.selector';
+import { addEvents } from 'src/app/store/events/events.action';
 import { addParticipant, removeParticipant } from 'src/app/store/participant/participant.action';
 import { selectParticipant } from 'src/app/store/participant/participant.selector';
 
@@ -19,16 +18,15 @@ import { selectParticipant } from 'src/app/store/participant/participant.selecto
 
 export class AddParticipantComponent implements OnInit {
 
-  mode = Mode.CREATE;
-
   @ViewChild("input") participantInputField: any | null = null;
+
+  mode = Mode.CREATE;
 
   participantName: string = '';
   alreadyPaid: number = 0;
 
   event: EventI | null = null;
   updatingParticipant: Participant | null = null;
-  // updatingParticipant: Participant | null = null;
 
   constructor(
     private store: Store,
@@ -38,52 +36,20 @@ export class AddParticipantComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onAddClick(): void {
-    // test data
-    // this.store.dispatch(addParticipant({
-    //   alreadyPaid: 0,
-    //   due: 0,
-    //   id: 1,
-    //   isAssignedToSpending: false,
-    //   name: 'kewo'
-    // }))
-
-    // this.store.dispatch(addParticipant({
-    //   alreadyPaid: 0,
-    //   due: 0,
-    //   id: 2,
-    //   isAssignedToSpending: false,
-    //   name: 'dani'
-    // }))
-
-    // this.store.dispatch(addParticipant({
-    //   alreadyPaid: 0,
-    //   due: 0,
-    //   id: 3,
-    //   isAssignedToSpending: false,
-    //   name: 'ruka'
-    // }))
-
     if (!this.participantName) return;
-
     if (this.event) {
-
       const foundParticipant = this.event.participants.find((participant: Participant) => {
         return participant.id === this.updatingParticipant?.id
       });
-
       if (foundParticipant) {
         this.updateParticipant(foundParticipant);
       } else {
         this.createNewParticipant();
       }
-
     }
-
   }
 
   createNewParticipant() {
@@ -98,10 +64,11 @@ export class AddParticipantComponent implements OnInit {
         due: 0,
         isAssignedToSpending: false
       };
-      const clonedParticipants = [...clonedEvent.participants];
+      const clonedParticipants: Participant[] = [...clonedEvent.participants];
       clonedParticipants.push(participant);
       clonedEvent.participants = [...clonedParticipants];
       this.store.dispatch(addEventInfo(clonedEvent));
+      this.updateFullState(clonedParticipants);
       this.resetFields();
     }
   }
@@ -122,6 +89,7 @@ export class AddParticipantComponent implements OnInit {
         clonedParticipants.splice(foundIndex, 1, updatedParticipant);
         clonedEvent.participants = [...clonedParticipants];
         this.store.dispatch(addEventInfo(clonedEvent));
+        this.updateFullState(clonedParticipants);
         this.resetFields();
       }
     }
@@ -138,6 +106,7 @@ export class AddParticipantComponent implements OnInit {
         clonedParticipants.splice(foundParticipantIndex, 1);
         clonedEvent.participants = [...clonedParticipants];
         this.store.dispatch(addEventInfo(clonedEvent))
+        this.updateFullState(clonedParticipants);
       }
     }
   }
@@ -153,6 +122,20 @@ export class AddParticipantComponent implements OnInit {
     this.participantName = '';
     this.alreadyPaid = 0;
     if (this.participantInputField) this.participantInputField.elementRef.nativeElement.focus();
+  }
+
+  updateFullState(participants: Participant[]): void {
+    if (this.event) {
+      // this.OnAutoSave.emit(true);
+      const eventInfo: EventI = {
+        ...this.event,
+        participants: participants,
+      }
+      this.store.dispatch(addEventInfo(eventInfo));
+      this.store.dispatch(addEvents({ events: [eventInfo] }))
+      // setTimeout(() => { this.OnAutoSave.emit(false); }, 2000);
+    }
+
   }
 
 }
