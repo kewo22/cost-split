@@ -24,6 +24,8 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { DueMinusIndicatorDirective } from "./directives/due-minus-indicator.directive";
 import { EventLineComponent } from './components/event-line/event-line.component';
 import { ReceiptComponent } from "./components/receipt/receipt.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 // import { TuiCalendarComponent } from "@taiga-ui/core";
 
 @NgModule({
@@ -59,7 +61,13 @@ import { ReceiptComponent } from "./components/receipt/receipt.component";
       {
         metaReducers: [metaReducerLocalStorage]
       }
-    )
+    ),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],
