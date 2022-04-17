@@ -16,10 +16,10 @@ export class EventComponent implements OnInit {
   readonly PER_PERSON_SPLIT = AccordionTypes.PER_PERSON_SPLIT;
   readonly SUMMARY = AccordionTypes.SUMMARY;
 
-  isEventInfoOpen: boolean = true;
+  isEventInfoOpen: boolean = false;
   isAddParticipantOpen: boolean = false;
   isAddSpendingOpen: boolean = false;
-  isSummaryOpen: boolean = false;
+  isSummaryOpen: boolean = true;
 
   isAutoSaving: boolean = false;
 

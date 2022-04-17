@@ -1,0 +1,59 @@
+<div class="receipt-wrapper" *ngIf="event" id="receipt-wrapper">
+
+    <div class="header-section tui-space_bottom-4">
+
+        <div class="tui-text_body-m">
+            <span class="label">Event</span>
+            {{event.name ? event.name :'-' }}
+        </div>
+
+        <div class="tui-text_body-m">
+            <span class="label">Location</span>
+            {{event.location ? event.location :'-' }}
+        </div>
+
+        <div class="tui-text_body-m">
+            <span class="label">Date</span>
+            {{event.date | date }}
+        </div>
+
+    </div>
+
+    <div class="tui-text_h6 title tui-space_bottom-4">Split Summary</div>
+
+
+    <div class="table-section">
+
+        <table class="table ">
+            <!-- tui-text_body-s -->
+            <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Cost</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let participant of event.participants">
+                    <td> {{participant.name}} </td>
+                    <td>
+                        <tui-money [currency]="'Rs'" [value]="participant.cost" class="tui-text-body-m-2"></tui-money>
+                    </td>
+                    <td>
+                        <tui-money [currency]="'Rs'" [value]="participant.alreadyPaid" class="tui-text-body-m-2">
+                        </tui-money>
+                    </td>
+                    <td>
+                        <tui-money [currency]="'Rs'" [value]="participant.due" appDueIndicator [due]="participant.due"
+                            class="font-weight-bold tui-text-body-m-2"></tui-money>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</div>

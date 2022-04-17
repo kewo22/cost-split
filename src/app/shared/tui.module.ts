@@ -139,6 +139,8 @@ import {
 } from '@taiga-ui/addon-table';
 
 import { PolymorpheusModule } from '@tinkoff/ng-polymorpheus';
+import { ReceiptServiceService } from "./services/receipt-service.service";
+import { SummaryCalculateService } from "./services/summary-calculate-service.service";
 
 const tuiModules = [
     TuiRootModule,
@@ -275,10 +277,14 @@ const tuiModules = [
     declarations: [
     ],
     imports: [
-        ...tuiModules
+        ...tuiModules,
+    ],
+    providers: [
+        ReceiptServiceService,
+        SummaryCalculateService
     ],
     exports: [
-        ...tuiModules
+        ...tuiModules,
     ],
 })
 export class TuiModule { }

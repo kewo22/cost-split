@@ -1,0 +1,52 @@
+.receipt-wrapper {
+  padding: 1rem;
+  .header-section {
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    div {
+      font-weight: bold;
+    }
+
+    .label {
+      opacity: 0.8;
+    }
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .table-section {
+    .table {
+      margin: auto;
+      width: 95%;
+      font-size: 16px;
+
+      thead {
+        tr {
+          th {
+            text-align: right;
+            &:first-child {
+              text-align: left;
+            }
+          }
+        }
+      }
+
+      tbody {
+          font-weight: normal;
+        tr {
+          td {
+            text-align: right;
+            &:first-child {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}
