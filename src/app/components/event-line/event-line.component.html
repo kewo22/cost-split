@@ -18,7 +18,6 @@
                 [size]="'xs'" (click)="onDownloadClick()"></button>
             <button tuiIconButton type="button" appearance="flat" class="delete-btn" [icon]="'tuiIconTrash'"
                 [size]="'xs'" (click)="onDeleteClick()"></button>
-            <!--   (click)="onClick($event)" -->
         </div>
     </div>
     <div class="dates-wrapper">
@@ -33,3 +32,21 @@
     </div>
 
 </div>
+
+<ng-template let-observer [tuiDialogOptions]="$any({ label: 'Delete Confirmation', size: 's' })"
+    [(tuiDialog)]="isDialogOpen">
+
+    <p class="tui-text_body-m">Are you sure ?</p>
+
+    <div class="dialog-action">
+        <button tuiButton [size]="'s'" type="button" appearance="outline" class="tui-space_right-3"
+            (click)="observer.complete()">
+            Cancel
+        </button>
+
+        <button tuiButton [size]="'s'" type="button" appearance="accent" (click)="onDeleteConfirm()">
+            Delete
+        </button>
+    </div>
+
+</ng-template>

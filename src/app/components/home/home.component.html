@@ -9,27 +9,10 @@
     <ng-template #eventList>
 
         <div class="homeTable">
-            <!-- <table class="tui-table">
-                <tbody class="tui-table__tr">
-                    <tr class="tui-table__th">
-                        <th class="tui-table__th">Name</th>
-                        <th class="tui-table__th">Location</th>
-                        <th class="tui-table__th">Event Date</th>
-                        <th class="tui-table__th">Created On</th>
-                    </tr>
-                    <tr class="tui-table__tr" *ngFor="let event of events$ | async">
-                        <td class="tui-table__td">{{event.name}}</td>
-                        <td class="tui-table__td">{{event.location}}</td>
-                        <td class="tui-table__td">{{event.date | date}}</td>
-                        <td class="tui-table__td">{{event.createdOn | date}}</td>
-                    </tr>
-                </tbody>
-            </table> -->
             <app-event-line *ngFor="let event of events$ | async" [event]="event"></app-event-line>
         </div>
 
     </ng-template>
-
 
     <div class="action-wrapper">
         <button tuiButton type="button" appearance="primary" [size]="'s'" class="tui-space_top-3 btn"
@@ -37,5 +20,4 @@
             Create New Event
         </button>
     </div>
-
 </div>
